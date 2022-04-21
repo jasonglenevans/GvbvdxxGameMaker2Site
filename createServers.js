@@ -18,7 +18,8 @@ servers.readFile("ggm-community-accountid-latest-id.txt",function (data) {
 	document.getElementById("loadingscreen").hidden = false
 	servers.saveFile("ggm-community-accountid-latest-id.txt",projectId,function () {
 		console.log("saved new id.");
-		servers.saveFile("ggm-community-accountid-project-"+projectId+".ggm2gserver",projectId,function () {
+		document.getElementById("loadingscreen").hidden = false
+		servers.saveFile("ggm-community-accountid-project-"+projectId+".ggm2gserver",gui.editorToJsonText(),function () {
 			console.log("saved new project data.");
 			window.location.replace(window.location.href+"?id="+projectId);
 			document.getElementById("loadingscreen").hidden = true
