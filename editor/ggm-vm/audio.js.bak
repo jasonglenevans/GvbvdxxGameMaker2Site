@@ -1,0 +1,41 @@
+window.audioEngine = {
+	sfx:{
+		audio:null,
+		play:function (a) {
+			this.audio = document.createElement("audio");
+			this.audio.src = a;
+			this.audio.play();
+		}
+	},
+	bgm:{
+		audio:document.createElement("audio"),
+		isPlaying:false,
+		play:function () {
+			this.audio.play();
+			this.isPlaying = true;
+		},
+		setSrc:function (a) {
+			this.audio.src = a;
+		}
+	},
+	stop:function () {
+		try{
+		if (this.sfx.audio) {
+			this.sfx.audio.pause();
+			this.sfx.audio = null;
+		}
+		this.bgm.isPlaying = false;
+		}catch(e){
+			console.warn("[AudioEngine]:error ignored" + e);
+		};
+	},
+	tickAudio:function () {
+		if (window.audioEngine.bgm.isPlaying == true) {
+			window.audioEngine.bgm.audio.play();
+		} else {
+			window.audioEngine.bgm.audio.pause();
+		}
+	}
+}
+window.audioEngine.bgm.audio.loop = true;
+setInterval(window.audioEngine.tickAudio,1);

@@ -1,0 +1,16 @@
+vm.	___CHECKCOLLIDE=function (spr1,spr2){
+var rect1 = {
+	x:spr1.x-(vm.renderer.canvas.width/2),
+	y:spr1.y-(vm.renderer.canvas.height/2),
+	width:spr1.width/2,
+	height:spr1.height/2
+};
+var rect2 = {
+	x:spr2.x-(vm.renderer.canvas.width/2),
+	y:spr2.y-(vm.renderer.canvas.height/2),
+	width:spr2.width/2,
+	height:spr2.height/2
+};
+const isColliding = rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x && rect1.y < rect2.y + rect2.height && rect1.height + rect1.y > rect2.y;
+return (isColliding);
+}

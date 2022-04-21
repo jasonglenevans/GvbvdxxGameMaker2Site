@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<title>Gvbvdxx game maker 2 commuinity!</title>
+<style>
+	#main_menu {
+		position:fixed;
+		top:0;
+		left:0;
+		background-color:#339af0;
+		width:100%;
+		height:48px;
+	}
+	.main_menu_item {
+		font-weight:bold;
+		color:#ffffff;
+		cursor:pointer;
+		float:left;
+		margin-left:15px;
+	}
+	.main_menu_item:hover {
+		font-size:20px;
+		margin-top:13px;
+	}
+	html {
+		background-color:#edf2ff;
+		font-family:Arial;
+	}
+</style>
+</head>
+<body>
+
+<div id="main_menu">
+<img width=100 height=48 style="float:left;" src="./logo.png">
+<a href="editor/index.html"><p class="main_menu_item">Create</p></a>
+</div>
+<br></br>
+<center>
+
+<h1>Community</h1>
+<h4 id="views">We have _ Views.</h4>
+<h1>Sharing is easy, plus no signup!</h1>
+<p>All you need to do is copy and paste the url of your game and send it to somebody (NOTICE:its possible to find your game, but when theres bigger numbers its harder to find)</p>
+
+</center>
+<script src="servers.js?n=1"></script>
+<script>
+/*servers.saveFile("test.txt","test",function () {
+	console.log("saved")
+});*/
+servers.readFile("views-ggm-community.txt",function (data) {
+	servers.saveFile("views-ggm-community.txt",Number(data)+1,function () {
+		console.log("saved views.");
+		document.getElementById("views").innerHTML = "We have " + Number(data) + " Views.";
+	});
+});
+
+</script>
+
+</body>
+</html>

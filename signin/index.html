@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<title>Gvbvdxx game maker 2 commuinity!</title>
+<style>
+	#main_menu {
+		position:fixed;
+		top:0;
+		left:0;
+		background-color:#339af0;
+		width:100%;
+		height:48px;
+	}
+	.main_menu_item {
+		font-weight:bold;
+		color:#ffffff;
+		cursor:pointer;
+		float:left;
+		margin-left:15px;
+	}
+	.main_menu_item:hover {
+		font-size:20px;
+		margin-top:13px;
+	}
+	html {
+		background-color:#edf2ff;
+		font-family:Arial;
+	}
+</style>
+</head>
+<body>
+
+<div id="main_menu">
+<img width=100 height=48 style="float:left;" src="../logo.png">
+</div>
+<br></br>
+<center>
+
+<h1>Sign In</h1>
+<label for="username">Username:</label>
+<input type="text" id="username"><br><br><br><br>
+<label for="password">Password:</label>
+<input type="text" id="password"><br><br>
+<button onclick="">New account</button>
+<button onclick="">Sign in</button>
+
+
+</center>
+<script src="../servers.js?n=1"></script>
+<script>
+function signin() {
+	
+}
+function newacc() {
+	servers.readFile("views-ggm-community-accountid-counter.txt",function (d) {
+		servers.saveFile("views-ggm-community-accountid-counter.txt",Number(d)+1,function () {
+			console.log("saved id.");
+			var 
+			servers.saveFile("views-ggm-community-user-"+,Number(data)+1,function () {
+				console.log("saved .");
+				document.getElementById("views").innerHTML = "We have " + Number(data) + " Views.";
+			});
+		});
+	});
+	servers.readFile("views-ggm-community-accountdata",function (d) {
+		var dataInJson = JSON.parse(d)
+		dataInJson.accounts.push({
+			
+		})
+		servers.saveFile("views-ggm-community-accountdata",JSON.parse(d),function () {
+			
+		});
+	});
+}
+</script>
+</body>
+</html>

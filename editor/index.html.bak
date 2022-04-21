@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="icon" href="favicon.png">
+		<link rel="stylesheet" href="ggm-gui/styles.css">
+	</head>
+	<body>
+		<script>
+			
+			window.getDirectory = function (){
+				console.log("[directorys] get directory called");
+				return {
+					gui:"./ggm-gui",
+					vm:"./ggm-vm"
+				};
+			};
+			
+		</script>
+		<xml id="toolbox">
+		
+		<category colour="#1971c2" name="Sprites">
+		
+		<block type="gvbvdxx_game_sprites_empty"></block>
+			<block type="gvbvdxx_game_sprites_set_img"></block>
+			<block type="gvbvdxx_game_sprites_set_position"></block>
+			<block type="gvbvdxx_game_sprites_size"></block>	
+			<block type="gvbvdxx_game_sprites_flip"></block>
+			<block type="gvbvdxx_game_sprites_direction"></block>
+			<block type="gvbvdxx_game_sprite_get"></block>
+			<block type="gvbvdxx_game_sprites_show"></block>
+			<block type="gvbvdxx_game_sprites_hide"></block>
+			
+		</category>
+		<category colour="#1971c2" name="Events">
+			<block type="gvbvdxx_game_ontick"></block>
+		</category>
+		<category colour="#1971c2" name="Sensing">
+			<block type="gvbvdxx_game_mouse_x"></block>
+			<block type="gvbvdxx_game_mouse_y"></block>
+			<block type="gvbvdxx_game_mouse_down"></block>
+			<block type="gvbvdxx_game_keydown"></block>
+			<block type="gvbvdxx_game_coliding"></block>
+		</category>
+		<category colour="#e64980" name="Audio">
+			<block type="gvbvdxx_audio_playsfx"></block>
+			<block type="gvbvdxx_audio_playbgm"></block>
+			<block type="gvbvdxx_audio_pausebgm"></block>
+			<block type="gvbvdxx_audio_playbgmnosrc"></block>
+		</category>
+		<category colour="#37b24d" name="Operators">
+			<block type="gvbvdxx_operators_maths"></block>
+			<block type="gvbvdxx_operators_true_false"></block>
+			<block type="gvbvdxx_operators_compare"></block>
+			<block type="gvbvdxx_operators_number"></block>
+			<block type="gvbvdxx_operators_color"></block>
+			<block type="gvbvdxx_operators_text"></block>
+			<block type="gvbvdxx_operators_random"></block>
+			<block type="gvbvdxx_operators_math"></block>
+		</category>
+		<category colour="#fab005" name="Control">
+			<block type="gvbvdxx_control_if_then"></block>
+			<block type="gvbvdxx_control_if_then_else"></block>
+			<block type="gvbvdxx_control_while"></block>
+			<block type="gvbvdxx_control_repeat"></block>
+		</category>
+		<category colour="#f76707" name="Files">
+			<block type="gvbvdxx_files_dataurl"></block>
+			<block type="gvbvdxx_files_makeimage"></block>
+		</category>
+		<sep></sep>
+		<category name="Variables" custom="VARIABLE" colour="#CE3175"></category>
+		
+		</xml>
+		<div id="loadingscreen" style="z-index:1000;">
+			<center class="loadingscreen_center_text">
+				<h1 class="loadingscreen_text">Gvbvdxx Game Maker 2 Is loading</h1>
+			</center>
+		</div>
+		<div id="main_menu">
+			
+			<img width=100 height=48 style="float:left;" src="ggm-gui/logo.png">
+			<p class="main_menu_item" onclick="workspace.clear();clearResources();">New</p>
+			<p class="main_menu_item" onclick="save()">Save</p>
+			<p class="main_menu_item" onclick="load()">Load</p>
+			<!--<p class="main_menu_item" onclick="window.open('./help/index.html')">Help</p>-->
+			<p style="float:left; color:#1c7ed6; font-size:23px; margin-left:10px; margin-top:11px;">|</p>
+			<input type="text" id="gameTitle" title="Your Games Title Goes Here" value="Untitled Game">
+			<p style="float:left; color:#1c7ed6; font-size:23px; margin-left:10px; margin-top:11px;">|</p>
+			<p class="main_menu_item" onclick="saveOnline();" id="saveOnlineButton">Save Online</p>
+		</div>
+		<div id="blocklyArea">
+			
+			<div id="blocklyDiv"></div>
+			
+		</div>
+		<div class="right">
+			<div style="background-color:black;" id="gameArea">
+			<div style="background-color:#e9ecef;width:100%;">
+				<button onclick="
+				document.getElementById('console').innerHTML = '';
+				vm.control.start();
+				" style="border:none;background-color:#e9ecef;cursor:pointer;">Start</button>
+				<button onclick="vm.control.stop();" style="border:none;background-color:#e9ecef;cursor:pointer;">Stop</button>
+				<button onclick="
+				if (document.getElementById('gameArea').getAttribute('class') == 'fullscreenGame') {
+					document.getElementById('gameArea').setAttribute('class','');
+					document.getElementById('gameScreen').setAttribute('style','image-rendering: pixelated;');
+					document.getElementById('files').hidden = false;
+				} else {
+					document.getElementById('gameArea').setAttribute('class','fullscreenGame');
+					document.getElementById('gameScreen').setAttribute('style','z-index:100000000;width:88.5%;height:calc(100vh - 18px);image-rendering:pixelated;');
+					document.getElementById('files').hidden = true;
+				}
+				" style="border:none;background-color:#e9ecef;cursor:pointer;">Toggle Fullscreen</button>
+				
+			</div>
+			<center><canvas id="gameScreen" style="image-rendering: pixelated;" width=600 height=360 style=""></canvas></center>
+			</div>
+			<p id="testPos" style="text-align:right; font-size:8px; margin-top:2px;"></p>
+			<hr>
+			<div class="RightContainerDiv">
+				<button onclick="document.getElementById('console').innerHTML = '';">Clear</button>
+				<div id="console">
+				</div>
+				<input hidden type="file" id="resourceupload">
+				<button onclick="document.getElementById('resourceupload').click();">Add resource</button>
+				<div id="files" style="image-rendering:pixelated;">
+					
+				</div>
+			</div>
+			
+		</div>
+		<div>
+			<div class="dialog_background" id="dialogBackground">
+			
+			</div>
+			<div class="dialog_box" id="dialogBox" hidden>
+				<div class="dialog_box_top"><center><h4 style="margin-top:6px;" id="">Dialog</h4></center></div><br>
+				<center>
+					<h1 id="dialogText">test</h1><br>
+					<h1 id="dialogName"></h1><br>
+					<input id="dialogInput" style="outline:none;" type="text" hidden style="width:90%; height:30px;">
+					<button class="tbButton" id="dialogButtonOk">ok</button>
+					<button class="tbButton" id="dialogButtonCancel">cancel</button>
+				</center>
+			</div>
+		</div>
+		<!--<div id="dialogBox">
+			<center>
+				<h1 id="dialogName"></h1>
+				<input id="dialogInput" type="text" hidden style="width:90%; height:30px;">
+				<p id="dialogText" hidden></p>
+				<br>
+				<br>
+				<br>
+				<button class="tbButton" id="dialogButtonOk">ok</button>
+				<button class="tbButton" id="dialogButtonCancel">cancel</button>
+			</center>
+		</div>
+		<div id="dialogBackground" style=""></div>-->
+		<img src="favicon.png" hidden id="testImage">
+		<input hidden type="file" id="gameFileUpload">
+		<script src="blockly/blockly_compressed.js"></script>
+		<script src="blockly/msg/js/en.js"></script>
+		<script src="blockly/blocks_compressed.js"></script>
+		<script src="blockly/javascript_compressed.js"></script>
+		<script src="ggm-vm/index.js"></script>
+		<script src="ggm-vm/renderer.js"></script>
+		<script src="ggm-vm/audio.js"></script>
+		<script src="ggm-gui/theme.js"></script>
+		<script src="ggm-gui/index.js"></script>
+		<!--The Upload Scripts-->
+		<script src="../servers.js"></script>
+		<script src="../createServers.js"></script>
+	</body>
+</html>

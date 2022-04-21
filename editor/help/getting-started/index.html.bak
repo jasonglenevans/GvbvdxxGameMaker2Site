@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Gvbvdxx Game Maker 2 | Help</title>
+		<style>
+			#main_menu {
+				position:fixed;
+				top:0;
+				left:0;
+				background-color:#339af0;
+				width:100%;
+				height:48px;
+			}
+		</style>
+	</head>
+	<body style="background-color:#edf2ff;font-family:Arial;">
+		<div id="main_menu">
+			
+			<img width=100 height=48 style="float:left;" src="../../ggm-gui/logo.png">
+		</div>
+		<br><br><br>
+		<center>
+			<h1 style="">Getting started</h1>
+			<a href="../index.html">Back</a>
+			<p>Welcome!
+			<br>
+			this is your first time using gvbvdxx game maker 2!<br>
+			so lets go over the basics...
+			<h1>Whats An Object?</h1><br>
+			an object is an variable that stores data, this can be an<br>
+			sprite, image, data url, anything!<br>
+			when you set the variable to an empty object your setting an object for the variable.
+			<br>
+			<video src="1. 1st example.mp4" controls></video>
+			<br>
+			</p>
+		</center>
+	</body>
+</html>
